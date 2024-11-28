@@ -1482,6 +1482,14 @@ ul.b {
   }
 }
 
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 #sponsor .testimonial-item img {
   width: auto;
   height: 100px;
