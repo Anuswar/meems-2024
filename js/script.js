@@ -34,12 +34,63 @@ window.addEventListener("load", () => {
 
   // Initialize WOW.js for animations
   new WOW().init();
+});
 
-  // Initialize counterUp for elements with data-toggle="counter-up" attribute
-  $('[data-toggle="counter-up"]').counterUp({
-    delay: 10,
-    time: 2000
-  });
+/*=============== SWIPER SLIDER ===============*/
+var swiper = new Swiper(".mySwiper", {
+  spaceBetween: 30,
+  lazy: true,
+  centeredSlides: true,
+  effect: "fade",
+  grabCursor: true,
+  loop: true,
+
+  autoplay: {
+    delay: 3500,
+    disableOnInteraction: false,
+  },
+});
+
+var swiper = new Swiper(".custom-swiper", {
+  slidesPerView: 1,
+  spaceBetween: 30,
+  loop: true,
+  centeredSlides: false,
+  slidesPerGroupSkip: 1,
+  mousewheel: true,
+
+  keyboard: {
+    enabled: true,
+  },
+
+  autoplay: {
+    delay: 3500,
+    disableOnInteraction: false,
+  },
+
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+
+  breakpoints: {
+    // when window width is <= 768px
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+    },
+
+    // when window width is <= 1024px
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+  },
 });
 
 /*=============== HEADER ===============*/
@@ -191,9 +242,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   for (let link of links) {
     link.addEventListener("click", function (event) {
-      event.preventDefault();
       const href = this.getAttribute("href");
 
+      // If the link is an external link, open it as usual
+      if (href.startsWith("http") || href.includes("://")) {
+        return; // Let the browser handle external links
+      }
+
+      // If the link is internal, prevent default behavior and scroll smoothly
+      event.preventDefault();
       if (href.startsWith("#")) {
         const targetId = href.substring(1);
         const targetElement = document.getElementById(targetId);
@@ -205,6 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
 
+        // Optionally remove the fragment identifier from the URL
         if (history.pushState) {
           history.pushState(
             null,
